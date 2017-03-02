@@ -1,10 +1,14 @@
 package anna.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Pet {
@@ -17,8 +21,8 @@ public class Pet {
 	private String gender;
 	private String dob;
 	
-	@OneToOne(mappedBy="pet")
-	Owner owner;
+	@ManyToMany(mappedBy="pets", fetch=FetchType.EAGER)
+	private Set<Owner> owners = new HashSet<>();
 	
 	public Pet(String name, String breed, String gender, String dob) {
 		this.name = name;
@@ -29,13 +33,13 @@ public class Pet {
 
 	public Pet() {}
 
-	
-	public Owner getOwner() {
-		return owner;
+
+	public Set<Owner> getOwners() {
+		return owners;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setOwners(Set<Owner> owners) {
+		this.owners = owners;
 	}
 
 	public String getName() {

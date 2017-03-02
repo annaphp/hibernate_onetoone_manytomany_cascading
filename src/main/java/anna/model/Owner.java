@@ -1,11 +1,14 @@
 package anna.model;
 
-import javax.persistence.CascadeType;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Owner {
@@ -15,8 +18,8 @@ public class Owner {
 	private String name;
 	private String phone;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	private Pet pet;
+	@ManyToMany(fetch=FetchType.EAGER)
+	private Set<Pet> pets = new HashSet<>();
 
 	public Owner(String name, String phone) {
 		this.name = name;
@@ -41,14 +44,15 @@ public class Owner {
 		this.phone = phone;
 	}
 
-	public Pet getPet() {
-		return pet;
+	
+	public Set<Pet> getPets() {
+		return pets;
 	}
 
-	public void setPet(Pet pet) {
-		this.pet = pet;
+	public void setPets(Set<Pet> pets) {
+		this.pets = pets;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -59,7 +63,7 @@ public class Owner {
 
 	@Override
 	public String toString() {
-		return "Owner [name=" + name + ", phone=" + phone + ", pet=" + pet + "]";
+		return "Owner [name=" + name + ", phone=" + phone + ", pet=" + pets + "]";
 	}
 	
 }
