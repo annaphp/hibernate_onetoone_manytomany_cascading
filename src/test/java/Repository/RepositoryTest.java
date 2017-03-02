@@ -40,6 +40,30 @@ public class RepositoryTest {
 		assertEquals(ownerRepo.findOwnerById(ownerId).getPet(), kitty);
 	}
 	
+	@Test
+	public void shouldRemovePet(){
+		Owner owner = ownerRepo.findOwnerById(ownerId);
+		Pet kitty = petRepo.findPetById(petId);
+		
+		owner.setPet(kitty); // create relation
+		
+		ownerRepo.update(owner); // save owner of relation
+		
+	
+		
+		assertEquals(ownerRepo.findOwnerById(ownerId).getPet(), kitty);
+		
+		owner = ownerRepo.findOwnerById(ownerId);
+		owner.setPet(null);
+		ownerRepo.update(owner); // save owner of relation
+		
+		assertNull(ownerRepo.findOwnerById(ownerId).getPet());
+
+		
+
+		
+	}
+	
 	
 
 }

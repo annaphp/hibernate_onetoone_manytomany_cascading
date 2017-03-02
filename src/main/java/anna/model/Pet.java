@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pet {
@@ -16,6 +17,9 @@ public class Pet {
 	private String gender;
 	private String dob;
 	
+	@OneToOne(mappedBy="pet")
+	Owner owner;
+	
 	public Pet(String name, String breed, String gender, String dob) {
 		this.name = name;
 		this.breed = breed;
@@ -24,6 +28,15 @@ public class Pet {
 	}
 
 	public Pet() {}
+
+	
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
 
 	public String getName() {
 		return name;
