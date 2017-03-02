@@ -1,5 +1,6 @@
 package anna.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ public class Owner {
 	private String name;
 	private String phone;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Pet pet;
 
 	public Owner(String name, String phone) {

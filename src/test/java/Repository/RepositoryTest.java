@@ -65,5 +65,22 @@ public class RepositoryTest {
 	}
 	
 	
+	
+	@Test
+	public void shouldCascadeDeletePet(){
+		Owner owner = ownerRepo.findOwnerById(ownerId);
+		Pet kitty = petRepo.findPetById(petId);
+		
+		owner.setPet(kitty); // create relation
+		
+		ownerRepo.update(owner); // save owner of relation
+		assertEquals(ownerRepo.findOwnerById(ownerId).getPet(), kitty);
+		
+		ownerRepo.delete(owner);
+		
+		assertNull(petRepo.findPetById(petId));
+	}
+	
+	
 
 }
